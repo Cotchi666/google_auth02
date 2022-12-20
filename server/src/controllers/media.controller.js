@@ -79,7 +79,7 @@ const getDetail = async (req, res) => {
     }
 
     media.reviews = await reviewModel.find({ mediaId }).populate("user").sort("-createdAt");
-
+    console.log("media", media)
     responseHandler.ok(res, media);
   } catch (e) {
     console.log(e);

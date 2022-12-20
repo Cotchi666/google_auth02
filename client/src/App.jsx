@@ -1,10 +1,9 @@
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 
+import { ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import themeConfigs from "./configs/theme.configs";
 import { ToastContainer } from "react-toastify";
-//routes
+import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 import routes from "./routes/routes";

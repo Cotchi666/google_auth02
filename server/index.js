@@ -13,12 +13,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
+
 app.use("/api/v1", routes);
 
 const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
-mongoose.set("strictQuery", false);
+//mongoose.set("strictQuery", true);
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
