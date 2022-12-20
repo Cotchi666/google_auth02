@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const themeModeSlice = createSlice({
+export const themeModelSlice = createSlice({
   name: "ThemeMode",
   initialState: {
     themeMode: "dark"
   },
   reducers: {
-    setThemeMode: (state, action) => {
+    setThemeModel: (state, action) => {
       state.themeMode = action.payload;
     }
   }
 });
 
 export const {
-  setThemeMode
-} = themeModeSlice.actions;
+  setThemeModel
+} = themeModelSlice.actions;
 
-export default themeModeSlice.reducer;
+export default themeModelSlice.reducer;
