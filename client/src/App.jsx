@@ -33,7 +33,7 @@ const App = () => {
       {/* mui reset css */}
       <CssBaseline />
 
-      {/* app routes */}
+      {/* app routes */}    
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
