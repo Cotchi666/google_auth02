@@ -250,15 +250,14 @@ const MediaDetail = () => {
                 {/* buttons */}
 
                 {/* cast */}
-                {media.credits.cast < 1 && (
+                {media.credits.cast < 1 ? (
                   <Container header="Cast">
                     <div className="swiper-wrapper">
                       {" "}
                       There is no cast for this content.{" "}
                     </div>
                   </Container>
-                )}
-                {media.credits.cast > 0 && (
+                ) : (
                   <Container header="Cast">
                     <CastSlide casts={media.credits.cast} />
                   </Container>
