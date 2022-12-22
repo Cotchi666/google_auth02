@@ -1,7 +1,6 @@
 import tmdbConfig from "./tmdb.config.js";
-
+// return url using tmdb.Config
 const tmdbEndPoints = {
-    
   mediaList: ({ mediaType, mediaCategory, page }) =>
     tmdbConfig.getUrl(`${mediaType}/${mediaCategory}/`, page),
 

@@ -58,6 +58,8 @@ const HeroSlide = ({ mediaType, mediaCategory }) => {
   return (
     <Box sx={{
       position: "relative",
+      border: "2px solid red",
+      borderRadius:"10px",
       color: "primary.contrastText",
       "&::before": {
         content: '""',

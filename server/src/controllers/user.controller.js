@@ -95,6 +95,7 @@ const getInfo = async (req, res) => {
     
    const user = await userModel.findById(req.user.id);
     //const user = { name: "chien" };
+    console.log("user2", user)
     if (!user) return responseHandler.notfound(res);
 
     responseHandler.ok(res, user);

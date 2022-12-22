@@ -8,9 +8,14 @@ import tokenMiddlerware from "../middlewares/token.middleware.js";
 const getList = async (req, res) => {
   try {
     const { page } = req.query;
+    console.log("page", page);
     const { mediaType, mediaCategory } = req.params;
 
-    const response = await tmdbApi.mediaList({ mediaType, mediaCategory, page });
+    const response = await tmdbApi.mediaList({
+      mediaType,
+      mediaCategory,
+      page,
+    });
 
     return responseHandler.ok(res, response);
   } catch {
@@ -38,9 +43,9 @@ const search = async (req, res) => {
     const response = await tmdbApi.mediaSearch({
       query,
       page,
-      mediaType: mediaType === "people" ? "person" : mediaType
+      mediaType: mediaType === "people" ? "person" : mediaType,
     });
-
+    console.log("search", req.params);
     responseHandler.ok(res, response);
   } catch {
     responseHandler.error(res);
@@ -73,13 +78,19 @@ const getDetail = async (req, res) => {
       const user = await userModel.findById(tokenDecoded.data);
 
       if (user) {
-        const isFavorite = await favoriteModel.findOne({ user: user.id, mediaId });
+        const isFavorite = await favoriteModel.findOne({
+          user: user.id,
+          mediaId,
+        });
         media.isFavorite = isFavorite !== null;
       }
     }
 
-    media.reviews = await reviewModel.find({ mediaId }).populate("user").sort("-createdAt");
-    console.log("media", media)
+    media.reviews = await reviewModel
+      .find({ mediaId })
+      .populate("user")
+      .sort("-createdAt");
+    //console.log("media", media)
     responseHandler.ok(res, media);
   } catch (e) {
     console.log(e);
