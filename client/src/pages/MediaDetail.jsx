@@ -59,8 +59,6 @@ const MediaDetail = () => {
         setMedia(response);
         setIsFavorite(response.isFavorite);
         setGenres(response.genres.splice(0, 2));
-        console.log("casstt response", response);
-        console.log("castttt", media.credits.cast);
       }
 
       if (err) toast.error(err.message);
@@ -252,16 +250,17 @@ const MediaDetail = () => {
                 {/* buttons */}
 
                 {/* cast */}
-                {!media.credits.cast ? (
-                  <Container header="Cast">
-                    <CastSlide casts={media.credits.cast} />
-                  </Container>
-                ) : (
+                {media.credits.cast < 1 && (
                   <Container header="Cast">
                     <div className="swiper-wrapper">
                       {" "}
                       There is no cast for this content.{" "}
                     </div>
+                  </Container>
+                )}
+                {media.credits.cast > 0 && (
+                  <Container header="Cast">
+                    <CastSlide casts={media.credits.cast} />
                   </Container>
                 )}
 
@@ -274,23 +273,26 @@ const MediaDetail = () => {
         {/* media content */}
 
         {/* media videos */}
-        <div ref={videoRef} style={{ paddingTop: "2rem" }}>
-          {!media.videos.results ? (
+
+        {media.videos.results < 1 ? (
+          <div ref={videoRef} style={{ paddingTop: "2rem" }}>
+            <Container header="Videos">
+              <div className="swiper-wrapper">
+                The video of the content has been lost, sorry for the
+                inconvenience.{" "}
+              </div>
+            </Container>
+          </div>
+        ) : (
+          <div ref={videoRef} style={{ paddingTop: "2rem" }}>
             <Container header="Videos">
               <MediaVideosSlide
                 videos={[...media.videos.results].splice(0, 5)}
               />
             </Container>
-          ) : (
-            <Container header="Videos">
-              <div className="swiper-wrapper">
-                {" "}
-                The video of the content has been lost, sorry for the
-                inconvenience.{" "}
-              </div>
-            </Container>
-          )}
-        </div>
+          </div>
+        )}
+
         {/* media videos */}
 
         {/* media backdrop */}
