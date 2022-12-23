@@ -19,6 +19,12 @@ app.use("/api/v1", routes);
 const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../frontend', 'build')));
+//   app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
+//   })
+// }
 //mongoose.set("strictQuery", true);
 mongoose
   .connect(process.env.MONGODB_URI)
