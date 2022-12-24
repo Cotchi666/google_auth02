@@ -28,7 +28,7 @@ const notfound = (res) => responseWithData(res, 404, {
   message: "Resource not found"
 });
 
-export default {
+  export default {
   error,
   badrequest,
   ok,

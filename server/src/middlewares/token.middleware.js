@@ -6,7 +6,7 @@ const tokenDecode = (req) => {
   try {
     //console.log("req", req.headers["Authorization"])
     const bearerHeader = req.headers["authorization"];
-
+    console.log("berrr", bearerHeader);
     if (bearerHeader) {
       const token = bearerHeader.split(" ")[1];
 
@@ -19,6 +19,7 @@ const tokenDecode = (req) => {
 };
 
 const auth = async (req, res, next) => {
+  
   const tokenDecoded = tokenDecode(req);
   console.log("token decoding", tokenDecoded);
   if (!tokenDecoded) return responseHandler.unauthorize(res);

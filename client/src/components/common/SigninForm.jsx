@@ -8,9 +8,17 @@ import * as Yup from "yup";
 import userApi from "../../api/modules/user.api";
 import { setAuthModalOpen } from "../../redux/features/authModalSlice";
 import { setUser } from "../../redux/features/userSlice";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import jwtDecode from "jwt-decode";
+import GoogleButton from "./GoogleButton";
+import axios from "axios";
 
 const SigninForm = ({ switchAuthState }) => {
   const dispatch = useDispatch();
+
+  const [disabled, setDisableForm] = useState(true);
+
+  //  var disabled = true; = setDisableForm(true);
 
   const [isLoginRequest, setIsLoginRequest] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
@@ -18,7 +26,7 @@ const SigninForm = ({ switchAuthState }) => {
   const signinForm = useFormik({
     initialValues: {
       password: "",
-      username: ""
+      username: "",
     },
     validationSchema: Yup.object({
       username: Yup.string()
@@ -26,12 +34,13 @@ const SigninForm = ({ switchAuthState }) => {
         .required("username is required"),
       password: Yup.string()
         .min(8, "password minimum 8 characters")
-        .required("password is required")
+        .required("password is required"),
     }),
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       setErrorMessage(undefined);
       setIsLoginRequest(true);
       console.log("asdasdasdasd");
+      console.log("values", values);
       const { response, err } = await userApi.signin(values);
       setIsLoginRequest(false);
 
@@ -43,9 +52,44 @@ const SigninForm = ({ switchAuthState }) => {
       }
 
       if (err) setErrorMessage(err.message);
-    }
+    },
   });
+  //const doDisabledForm = () => setDisableForm(true);
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (respose) => {
+      setIsLoginRequest(true);
+      console.log("goooogle");
 
+      try {
+        const res = await axios.get(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${respose.access_token}`,
+            },
+          }
+        );
+        console.log(res.data);
+        console.log("asdasdasdasd", res.data.email);
+        console.log("asdasdasdasd", res.data.name);
+
+        const userGG = { name: res.data.name, email: res.data.email };
+        const { response, err } = await userApi.signinGoogle(userGG);
+        console.log("response", response);
+        setIsLoginRequest(false);
+        if (response) {
+          signinForm.resetForm();
+          dispatch(setUser(response));
+          dispatch(setAuthModalOpen(false));
+          toast.success("Sign in success");
+        }
+
+        if (err) setErrorMessage(err.message);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
   return (
     <Box component="form" onSubmit={signinForm.handleSubmit}>
       <Stack spacing={3}>
@@ -57,7 +101,10 @@ const SigninForm = ({ switchAuthState }) => {
           value={signinForm.values.username}
           onChange={signinForm.handleChange}
           color="success"
-          error={signinForm.touched.username && signinForm.errors.username !== undefined}
+          error={
+            signinForm.touched.username &&
+            signinForm.errors.username !== undefined
+          }
           helperText={signinForm.touched.username && signinForm.errors.username}
         />
         <TextField
@@ -68,7 +115,10 @@ const SigninForm = ({ switchAuthState }) => {
           value={signinForm.values.password}
           onChange={signinForm.handleChange}
           color="success"
-          error={signinForm.touched.password && signinForm.errors.password !== undefined}
+          error={
+            signinForm.touched.password &&
+            signinForm.errors.password !== undefined
+          }
           helperText={signinForm.touched.password && signinForm.errors.password}
         />
       </Stack>
@@ -84,17 +134,23 @@ const SigninForm = ({ switchAuthState }) => {
         sign in
       </LoadingButton>
 
-      <Button
-        fullWidth
-        sx={{ marginTop: 1 }}
-        onClick={() => switchAuthState()}
-      >
+      <GoogleButton
+      
+        //onClick={handleGoogleLogin}
+        handleGoogleLogin={handleGoogleLogin}
+        //
+        
+        errorMessage={errorMessage}
+      />
+      <Button fullWidth sx={{ marginTop: 1 }} onClick={() => switchAuthState()}>
         sign up
       </Button>
 
       {errorMessage && (
         <Box sx={{ marginTop: 2 }}>
-          <Alert severity="error" variant="outlined" >{errorMessage}</Alert>
+          <Alert severity="error" variant="outlined">
+            {errorMessage}
+          </Alert>
         </Box>
       )}
     </Box>

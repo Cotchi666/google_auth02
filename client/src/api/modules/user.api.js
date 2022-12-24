@@ -6,6 +6,8 @@ const userEndpoints = {
   signup: "user/signup",
   getInfo: "user/info",
   passwordUpdate: "user/update-password",
+  signinGoogle: "user/signinGoogle",
+  signupGoogle: "user/signupGoogle",
 };
 
 const userApi = {
@@ -52,6 +54,33 @@ const userApi = {
         password,
         newPassword,
         confirmNewPassword,
+      });
+
+      return { response };
+    } catch (err) {
+      return { err };
+    }
+  },
+  signinGoogle: async ({ name, email }) => {
+    try {
+      console.log("send request", name);
+      console.log("send , email", email);
+      const response = await publicClient.post(userEndpoints.signinGoogle, {
+        name,
+        email,
+      });
+      console.log("responsegooleƒ", response);
+      return { response };
+    } catch (err) {
+      console.log("err");
+      return { err };
+    }
+  },
+  signupGoogle: async ({ name, email }) => {
+    try {
+      const response = await publicClient.post(userEndpoints.signupGoogle, {
+        name,
+        email,
       });
 
       return { response };
