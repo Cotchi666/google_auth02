@@ -3,7 +3,6 @@ import { Alert, Box, Button, Stack, TextField } from "@mui/material";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useFormik } from "formik";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -17,7 +16,7 @@ const SignupForm = ({ switchAuthState }) => {
 
   const [isLoginRequest, setIsLoginRequest] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-  const signup = "signup"
+  const signup = "signup";
   const signinForm = useFormik({
     initialValues: {
       password: "",
@@ -176,9 +175,8 @@ const SignupForm = ({ switchAuthState }) => {
       /> */}
       <GoogleButton
         //onClick={handleGoogleLogin}
-        googleTitle ={signup}
+        googleTitle={signup}
         handleGoogleLogin={handleGoogleLogin}
-        
       />
       <Button fullWidth sx={{ marginTop: 1 }} onClick={() => switchAuthState()}>
         sign in

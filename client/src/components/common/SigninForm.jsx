@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import userApi from "../../api/modules/user.api";
 import { setAuthModalOpen } from "../../redux/features/authModalSlice";
 import { setUser } from "../../redux/features/userSlice";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import {  useGoogleLogin } from "@react-oauth/google";
 //import jwtDecode from "jwt-decode";
 import GoogleButton from "./GoogleButton";
 import axios from "axios";
@@ -16,7 +16,7 @@ import axios from "axios";
 const SigninForm = ({ switchAuthState }) => {
   const dispatch = useDispatch();
 
-  const [disabled, setDisableForm] = useState(true);
+  // const [disabled, setDisableForm] = useState(true);
 
   //  var disabled = true; = setDisableForm(true);
 
