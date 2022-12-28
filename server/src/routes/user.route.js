@@ -18,7 +18,7 @@ router.post(
     .custom(async (value) => {
       const user = await userModel.findOne({ username: value });
       if (user) return Promise.reject("username already used");
-    }),
+    }), 
   body("password")
     .exists()
     .withMessage("password is required")
