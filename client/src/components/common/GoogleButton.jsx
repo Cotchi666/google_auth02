@@ -1,7 +1,7 @@
-const GoogleButton = ({ handleGoogleLogin, errorMessage }) => {
+const GoogleButton = ({ handleGoogleLogin , googleTitle}) => {
   return (
     <>
-      {errorMessage !== "User not exist, you have to sign up first" ? (
+      {googleTitle !== "signup" ? (
         <button
           type="button"
           style={{

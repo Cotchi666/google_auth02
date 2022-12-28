@@ -17,7 +17,7 @@ const SignupForm = ({ switchAuthState }) => {
 
   const [isLoginRequest, setIsLoginRequest] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-
+  const signup = "signup"
   const signinForm = useFormik({
     initialValues: {
       password: "",
@@ -176,10 +176,9 @@ const SignupForm = ({ switchAuthState }) => {
       /> */}
       <GoogleButton
         //onClick={handleGoogleLogin}
+        googleTitle ={signup}
         handleGoogleLogin={handleGoogleLogin}
-        type="submit"
-        hidden
-        errorMessage={errorMessage}
+        
       />
       <Button fullWidth sx={{ marginTop: 1 }} onClick={() => switchAuthState()}>
         sign in

@@ -9,7 +9,7 @@ import userApi from "../../api/modules/user.api";
 import { setAuthModalOpen } from "../../redux/features/authModalSlice";
 import { setUser } from "../../redux/features/userSlice";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
-import jwtDecode from "jwt-decode";
+//import jwtDecode from "jwt-decode";
 import GoogleButton from "./GoogleButton";
 import axios from "axios";
 
@@ -139,8 +139,6 @@ const SigninForm = ({ switchAuthState }) => {
         //onClick={handleGoogleLogin}
         handleGoogleLogin={handleGoogleLogin}
         //
-        
-        errorMessage={errorMessage}
       />
       <Button fullWidth sx={{ marginTop: 1 }} onClick={() => switchAuthState()}>
         sign up
