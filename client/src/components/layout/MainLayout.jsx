@@ -12,6 +12,7 @@ import favoriteApi from "../../api/modules/favorite.api";
 import { setListFavorites, setUser } from "../../redux/features/userSlice";
 
 const MainLayout = () => {
+  
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);

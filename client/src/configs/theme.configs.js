@@ -7,8 +7,9 @@ export const themeModes = {
 };
 
 const themeConfigs = {
+  //return customPalette for custom  
   custom: ({ mode }) => {
-    const customPalette =   mode === themeModes.dark
+    const customPalette = mode === themeModes.dark
         ? {
             primary: {
               main: "#ff0000",
@@ -35,7 +36,9 @@ const themeConfigs = {
             },
           };
 
+          
     return createTheme({
+      //using "custom above"
       palette: {
         mode,
         ...customPalette,
